@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Tools Hub | RG Trading House</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { primary: '#1565C0', success: '#00C853', warning: '#F59E0B', darkText: '#1E293B' }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .bg-smooth-radial { background: radial-gradient(circle at center, #ffffff 0%, #e3f2fd 120%); }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #F3F4F6;
+            box-shadow: 0 10px 25px -5px rgba(21, 101, 192, 0.1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .glass-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(21, 101, 192, 0.2);
+            border-color: #bfdbfe;
+        }
+    </style>
+</head>
+<body class="bg-smooth-radial min-h-screen text-gray-800 p-6 flex flex-col justify-center">
+
+    <div class="max-w-6xl mx-auto w-full">
+        
+        <!-- Tombol Kembali -->
+        <div class="mb-8">
+            <a href="index.html" class="text-primary hover:text-blue-800 font-semibold flex items-center gap-2 w-fit">
+                <i class="fas fa-arrow-left"></i> Kembali ke Halaman Utama
+            </a>
+        </div>
+
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <div class="w-16 h-16 bg-primary text-white rounded-2xl flex items-center justify-center text-3xl mx-auto mb-6 shadow-lg shadow-blue-500/30">
+                <i class="fas fa-toolbox"></i>
+            </div>
+            <h1 class="text-4xl font-black text-darkText mb-3">Pro Trading Tools</h1>
+            <p class="text-gray-500 font-medium text-lg max-w-2xl mx-auto">Pilih kalkulator yang Anda butuhkan untuk menganalisis risiko, mengatur lot, atau merencanakan target profit.</p>
+        </div>
+
+        <!-- Pilihan Kalkulator -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Kalkulator 1: Risk Reward -->
+            <a href="risk-calculator.html" class="glass-card p-8 rounded-3xl flex flex-col group cursor-pointer border-t-4 border-transparent hover:border-blue-600">
+                <div class="w-14 h-14 bg-blue-50 text-primary rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition duration-300">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-darkText mb-3">Position Size & RR</h3>
+                <p class="text-gray-500 text-sm mb-6 flex-1 leading-relaxed">Hitung persentase risiko, ketahui batas kerugian maksimal dalam Dolar, dan temukan ukuran Lot paling aman sebelum *entry*.</p>
+                <span class="text-primary font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Buka Kalkulator <i class="fas fa-arrow-right"></i></span>
+            </a>
+
+            <!-- Kalkulator 2: Pip Value -->
+            <a href="pip-calculator.html" class="glass-card p-8 rounded-3xl flex flex-col group cursor-pointer border-t-4 border-transparent hover:border-warning">
+                <div class="w-14 h-14 bg-orange-50 text-warning rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition duration-300">
+                    <i class="fas fa-coins"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-darkText mb-3">Pip & Point Value</h3>
+                <p class="text-gray-500 text-sm mb-6 flex-1 leading-relaxed">Ketahui secara presisi berapa nilai 1 pip / 1 point dalam mata uang USD untuk Forex, XAUUSD, Index, maupun Crypto.</p>
+                <span class="text-warning font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Buka Kalkulator <i class="fas fa-arrow-right"></i></span>
+            </a>
+
+            <!-- Kalkulator 3: Compounding -->
+            <a href="compounding.html" class="glass-card p-8 rounded-3xl flex flex-col group cursor-pointer border-t-4 border-transparent hover:border-success">
+                <div class="w-14 h-14 bg-green-50 text-success rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition duration-300">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-darkText mb-3">Compounding Plan</h3>
+                <p class="text-gray-500 text-sm mb-6 flex-1 leading-relaxed">Simulasikan proyeksi pertumbuhan modal Anda dalam hitungan bulan jika Anda konsisten mencapai target persentase profit harian/bulanan.</p>
+                <span class="text-success font-bold flex items-center gap-2 group-hover:gap-3 transition-all">Buka Kalkulator <i class="fas fa-arrow-right"></i></span>
+            </a>
+
+        </div>
+    </div>
+
+</body>
+</html>

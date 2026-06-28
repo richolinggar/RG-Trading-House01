@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading Journal | RG Trading House</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Library SheetJS untuk Export Excel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; background: radial-gradient(circle at center, #ffffff 0%, #e3f2fd 120%); }
+        .glass-card { background: rgba(255, 255, 255, 0.95); border: 1px solid #F3F4F6; box-shadow: 0 10px 25px -5px rgba(21, 101, 192, 0.1); }
+    </style>
+</head>
+<body class="min-h-screen text-gray-800 p-6">
+
+    <div class="max-w-5xl mx-auto mb-6">
+        <a href="index.html" class="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-2">
+            <i class="fas fa-arrow-left"></i> Kembali ke Dashboard
+        </a>
+    </div>
+
+    <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Area Input Jurnal -->
+        <div class="lg:col-span-1 glass-card rounded-2xl p-6 h-fit">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 bg-blue-600 text-white rounded-lg flex items-center justify-center text-lg shadow-lg">
+                    <i class="fas fa-book"></i>
+                </div>
+                <h2 class="text-xl font-bold text-gray-900">Catat Trade</h2>
+            </div>
+
+            <form id="formJurnal" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Pair / Aset</label>
+                    <select id="pair" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                        <option value="XAUUSD">XAUUSD</option>
+                        <option value="EURUSD">EURUSD</option>
+                        <option value="GBPUSD">GBPUSD</option>
+                    </select>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Posisi</label>
+                        <select id="posisi" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                            <option value="BUY">BUY</option>
+                            <option value="SELL">SELL</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">Lot</label>
+                        <input type="number" id="lot" step="0.01" value="0.10" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-1">Profit / Loss ($)</label>
+                    <input type="number" id="pnl" placeholder="Contoh: 45 atau -20" class="w-full px-3 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 outline-none">
+                </div>
+
+                <button type="button" onclick="tambahCatatan()" class="w-full bg-blue-600 text-white py-3 rounded-xl font-bold hover:bg-blue-800 transition shadow-md">
+                    Simpan Jurnal
+                </button>
+            </form>
+        </div>
+
+        <!-- Area Tabel Riwayat -->
+        <div class="lg:col-span-2 glass-card rounded-2xl p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-900">Riwayat Trading</h2>
+                <!-- Tombol Export Excel -->
+                <button onclick="exportToExcel()" class="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-green-700 transition">
+                    <i class="fas fa-file-excel mr-2"></i> Download Excel
+                </button>
+            </div>
+            
+            <div class="overflow-x-auto">
+                <table id="tabelUtama" class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="border-b border-gray-200 text-gray-500 text-sm">
+                            <th class="pb-3 font-semibold">Tanggal</th>
+                            <th class="pb-3 font-semibold">Pair</th>
+                            <th class="pb-3 font-semibold">Posisi</th>
+                            <th class="pb-3 font-semibold">Lot</th>
+                            <th class="pb-3 font-semibold text-right">P&L ($)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabelRiwayat" class="text-sm">
+                        <!-- Data akan muncul di sini -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function tambahCatatan() {
+            const pair = document.getElementById('pair').value;
+            const posisi = document.getElementById('posisi').value;
+            const lot = document.getElementById('lot').value;
+            const pnlValue = parseFloat(document.getElementById('pnl').value);
+
+            if(isNaN(pnlValue)) { alert("Masukkan angka P&L!"); return; }
+
+            const tanggal = new Date().toLocaleDateString('id-ID');
+            const pnlTeks = (pnlValue >= 0 ? "+" : "") + pnlValue;
+            const pnlWarna = pnlValue >= 0 ? "text-green-600" : "text-red-600";
+            const posisiStyle = posisi === "BUY" ? "bg-blue-100 text-blue-800" : "bg-red-100 text-red-800";
+
+            const barisBaru = `
+                <tr class="border-b border-gray-100 hover:bg-gray-50">
+                    <td class="py-3 text-gray-600">${tanggal}</td>
+                    <td class="py-3 font-semibold">${pair}</td>
+                    <td class="py-3"><span class="${posisiStyle} px-2 py-1 rounded text-xs font-bold">${posisi}</span></td>
+                    <td class="py-3">${lot}</td>
+                    <td class="py-3 text-right font-bold ${pnlWarna}">${pnlTeks}</td>
+                </tr>
+            `;
+            document.getElementById('tabelRiwayat').insertAdjacentHTML('afterbegin', barisBaru);
+            document.getElementById('pnl').value = '';
+        }
+
+        // Fungsi Download Excel
+        function exportToExcel() {
+            const table = document.getElementById("tabelUtama");
+            const wb = XLSX.utils.table_to_book(table, {sheet: "Jurnal Trading"});
+            XLSX.writeFile(wb, "RG_Trading_Journal.xlsx");
+        }
+    </script>
+</body>
+</html>

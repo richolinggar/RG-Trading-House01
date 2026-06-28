@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pip & Point Value | RG Trading House</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        primary: '#1565C0', warning: '#F59E0B', discord: '#5865F2', discordHover: '#4752C4', darkText: '#1E293B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .bg-smooth-radial { background: radial-gradient(circle at top center, #ffffff 0%, #e3f2fd 120%); }
+        .bg-grid-pattern {
+            background-image: linear-gradient(to right, rgba(21, 101, 192, 0.04) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(21, 101, 192, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 10px 30px -10px rgba(21, 101, 192, 0.1);
+        }
+        .blob {
+            position: absolute; filter: blur(80px); z-index: 0; opacity: 0.4; border-radius: 50%;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, -50px) scale(1.1); }
+        }
+    </style>
+</head>
+<body class="bg-smooth-radial bg-grid-pattern min-h-screen text-gray-800 relative overflow-x-hidden flex flex-col">
+
+    <div class="blob bg-blue-300 w-96 h-96 top-0 left-10"></div>
+    <div class="blob bg-orange-200 w-80 h-80 top-40 right-10" style="animation-delay: -5s;"></div>
+
+<nav class="fixed w-full z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- LOGO RG DIPERBAIKI DI SINI -->
+                <a href="index.html" class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
+                    <div class="w-10 h-10 bg-primary text-white rounded-xl flex items-center justify-center font-black text-xl shadow-lg shadow-blue-500/20">RG</div>
+                    <span class="font-black text-xl tracking-tight text-darkText hidden sm:block">Trading House</span>
+                </a>
+                
+                <div class="hidden lg:flex space-x-8 items-center font-semibold text-sm text-gray-500">
+                    <a href="index.html" class="hover:text-primary transition">Home</a>
+                    <a href="market.html" class="hover:text-primary transition">Market</a>
+                    <a href="kalkulator.html" class="text-primary transition">Tools</a>
+                    <a href="calender.html" class="hover:text-primary transition">Events</a>
+                    <a href="edukasi.html" class="hover:text-primary transition">Academy</a>
+                    <a href="https://discord.gg/ehxYFmJpn" target="_blank" class="bg-discord text-white px-6 py-2.5 rounded-full hover:bg-discordHover transition shadow-lg flex items-center gap-2">
+                        <i class="fab fa-discord text-lg"></i> Join Discord
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-1 relative pt-32 pb-20 z-10 w-full flex items-center">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 w-full">
+            
+            <div class="mb-6">
+                <a href="kalkulator.html" class="text-primary hover:text-blue-800 font-semibold flex items-center gap-2 w-fit bg-white/50 px-4 py-2 rounded-full border border-blue-100 backdrop-blur-sm shadow-sm transition hover:shadow-md">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Menu Kalkulator
+                </a>
+            </div>
+
+            <div class="glass-card rounded-3xl p-8 w-full">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-14 h-14 bg-warning text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-orange-500/30">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-black text-darkText">Pip & Point Value</h1>
+                        <p class="text-gray-500 font-medium">Hitung nilai dolar ($) dari 1 pergerakan Pip/Point.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6 mb-8">
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Instrumen Trading (Pair)</label>
+                        <select id="pairSelect" onchange="cekKebutuhanHarga(); hitungNilaiPip();" class="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 focus:ring-0 focus:border-warning outline-none transition font-bold text-gray-800">
+                            <option value="EURUSD">EUR/USD (Forex Major)</option>
+                            <option value="GBPUSD">GBP/USD (Forex Major)</option>
+                            <option value="USDJPY">USD/JPY (Forex Cross)</option>
+                            <option value="XAUUSD">XAU/USD (Gold / Emas)</option>
+                            <option value="BTCUSD">BTC/USD (Bitcoin)</option>
+                            <option value="NASDAQ">NASDAQ / US100 (Index)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Ukuran Lot (Lot Size)</label>
+                        <input type="number" id="lotSize" step="0.01" value="0.10" oninput="hitungNilaiPip()" class="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 focus:border-warning outline-none transition font-bold text-gray-800" placeholder="0.10">
+                    </div>
+
+                    <div id="priceInputDiv" class="hidden bg-orange-50 p-5 rounded-2xl border-2 border-orange-200">
+                        <label class="block text-sm font-bold text-gray-700 mb-2">Harga Market Saat Ini (Khusus JPY)</label>
+                        <input type="number" id="currentPrice" step="0.01" oninput="hitungNilaiPip()" placeholder="150.50" class="w-full px-4 py-3.5 rounded-xl border-2 border-orange-300 focus:border-warning outline-none transition font-bold">
+                    </div>
+                </div>
+
+                <div id="kotakHasil" class="mt-8 p-8 bg-gradient-to-br from-orange-50 to-white border-2 border-orange-100 rounded-2xl transition-all duration-300">
+                    <h2 class="text-xs font-black text-warning mb-2 text-center uppercase tracking-widest">Nilai Pergerakan</h2>
+                    <p id="teksSatuan" class="text-center text-gray-700 font-bold mb-6">Setiap pergerakan 1 Pip bernilai:</p>
+                    
+                    <div class="bg-white py-8 rounded-2xl shadow-sm text-center border border-gray-100 relative overflow-hidden">
+                        <p class="text-6xl font-black text-darkText" id="hasilAkhir">$1.00</p>
+                        <p class="text-sm font-bold text-gray-400 mt-3 uppercase tracking-widest">USD</p>
+                    </div>
+                    
+                    <p id="catatanEdukasi" class="text-xs font-medium text-center text-gray-500 mt-6 px-4 leading-relaxed">Forex Major: Nilai pip bersifat tetap. 1 Lot Standar selalu bernilai $10 per pip.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-100 py-10 z-10 relative mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex justify-center items-center gap-3 mb-4">
+                <div class="w-8 h-8 bg-primary text-white rounded-lg flex items-center justify-center font-black text-xs shadow-sm">RG</div>
+                <span class="font-bold text-gray-700">Trading House</span>
+            </div>
+            <p class="text-sm text-gray-400 mb-4">&copy; 2026 RG Trading House. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function cekKebutuhanHarga() {
+            const pair = document.getElementById('pairSelect').value;
+            const priceDiv = document.getElementById('priceInputDiv');
+            if (pair === 'USDJPY') priceDiv.classList.remove('hidden'); else priceDiv.classList.add('hidden');
+        }
+
+        function hitungNilaiPip() {
+            const pair = document.getElementById('pairSelect').value;
+            const lot = parseFloat(document.getElementById('lotSize').value);
+            let nilaiPergerakan = 0;
+            
+            let teksSatuan = document.getElementById('teksSatuan');
+            let catatanEdukasi = document.getElementById('catatanEdukasi');
+
+            if (isNaN(lot) || lot <= 0) return;
+
+            if (pair === 'EURUSD' || pair === 'GBPUSD') {
+                nilaiPergerakan = lot * 10;
+                teksSatuan.innerText = "Setiap pergerakan 1 Pip (0.0001) bernilai:";
+                catatanEdukasi.innerText = "Forex Major: Nilai pip bersifat tetap. 1 Lot Standar selalu bernilai $10 per pip.";
+            } else if (pair === 'USDJPY') {
+                const price = parseFloat(document.getElementById('currentPrice').value);
+                if (isNaN(price) || price <= 0) { document.getElementById('hasilAkhir').innerText = "$0.00"; return; }
+                nilaiPergerakan = (0.01 / price) * (lot * 100000);
+                teksSatuan.innerText = "Setiap pergerakan 1 Pip (0.01) bernilai:";
+                catatanEdukasi.innerText = `Forex Cross: Nilai pip bergerak dinamis mengikuti harga ${price}.`;
+            } else if (pair === 'XAUUSD') {
+                nilaiPergerakan = lot * 1; 
+                teksSatuan.innerText = "Setiap pergerakan 1 Pip (0.01) bernilai:";
+                catatanEdukasi.innerText = "XAUUSD (Gold): Jika harga bergerak dari 2340.00 ke 2341.00, itu adalah 100 pip (100 Poin).";
+            } else if (pair === 'BTCUSD') {
+                nilaiPergerakan = lot * 1;
+                teksSatuan.innerText = "Setiap pergerakan 1 Point ($1 penuh) bernilai:";
+                catatanEdukasi.innerText = "Crypto (Bitcoin): Trader crypto menggunakan istilah 'Point'. Jika harga BTC naik dari $60,000 ke $60,100, itu adalah pergerakan 100 Point.";
+            } else if (pair === 'NASDAQ') {
+                nilaiPergerakan = lot * 1;
+                teksSatuan.innerText = "Setiap pergerakan 1 Point penuh bernilai:";
+                catatanEdukasi.innerText = "Indices (Nasdaq): Di broker CFD ritel, 1 Lot standar berarti setiap pergerakan 1 poin penuh ($1) bernilai $1.";
+            }
+
+            document.getElementById('hasilAkhir').innerText = "$" + nilaiPergerakan.toFixed(2);
+        }
+        window.onload = hitungNilaiPip;
+    </script>
+</body>
+</html>

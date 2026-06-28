@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Calendar & News | RG Trading House</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: { primary: '#1565C0', success: '#00C853', danger: '#ef4444' }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Background gradien yang menuju ke tengah dan sangat smooth sesuai standar desain */
+        .bg-smooth-radial {
+            background: radial-gradient(circle at center, #ffffff 0%, #e3f2fd 120%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #F3F4F6;
+            box-shadow: 0 10px 25px -5px rgba(21, 101, 192, 0.1);
+        }
+        .hover-lift { transition: all 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-5px); box-shadow: 0 15px 30px -5px rgba(21, 101, 192, 0.2); }
+    </style>
+</head>
+<body class="bg-smooth-radial min-h-screen text-gray-800 p-6 pb-20">
+
+    <div class="max-w-7xl mx-auto mb-6 mt-2">
+        <a href="index.html" class="text-primary hover:text-blue-800 font-semibold flex items-center gap-2">
+            <i class="fas fa-arrow-left"></i> Kembali ke Dashboard
+        </a>
+    </div>
+
+    <div class="max-w-7xl mx-auto">
+        <div class="flex items-center gap-4 mb-8">
+            <div class="w-14 h-14 bg-primary text-white rounded-xl flex items-center justify-center text-2xl shadow-lg">
+                <i class="fas fa-globe"></i>
+            </div>
+            <div>
+                <h1 class="text-3xl font-bold text-gray-900">Global Market Events</h1>
+                <p class="text-gray-500">Kalender ekonomi real-time dan portal berita fundamental.</p>
+            </div>
+        </div>
+
+        <h2 class="text-xl font-bold text-gray-900 mb-4">External Data Portals</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+            
+            <a href="https://www.forexfactory.com/" target="_blank" class="glass-card rounded-2xl p-6 hover-lift flex items-center gap-4 group">
+                <div class="w-12 h-12 rounded-full bg-green-100 text-green-700 flex items-center justify-center text-xl font-bold group-hover:bg-green-700 group-hover:text-white transition">
+                    FF
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-900 text-lg">ForexFactory</h3>
+                    <p class="text-xs text-gray-500">Forum & Kalender Trading</p>
+                </div>
+                <i class="fas fa-external-link-alt ml-auto text-gray-400 group-hover:text-primary"></i>
+            </a>
+
+            <a href="https://www.investing.com/" target="_blank" class="glass-card rounded-2xl p-6 hover-lift flex items-center gap-4 group">
+                <div class="w-12 h-12 rounded-full bg-gray-900 text-white flex items-center justify-center text-xl font-bold group-hover:bg-black transition">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-900 text-lg">Investing.com</h3>
+                    <p class="text-xs text-gray-500">Berita Market Terkini</p>
+                </div>
+                <i class="fas fa-external-link-alt ml-auto text-gray-400 group-hover:text-primary"></i>
+            </a>
+
+            <a href="https://finance.worldmonitor.app/dashboard?lat=20.0000&lon=0.0000&zoom=1.00&view=global&timeRange=7d&layers=cables%2Cpipelines%2Csanctions%2Cweather%2Ceconomic%2Cwaterways%2Coutages%2Cnatural%2CtradeRoutes" target="_blank" class="glass-card rounded-2xl p-6 hover-lift flex items-center gap-4 group border-l-4 border-l-primary">
+                <div class="w-12 h-12 rounded-full bg-blue-100 text-primary flex items-center justify-center text-xl font-bold group-hover:bg-primary group-hover:text-white transition">
+                    <i class="fas fa-map-marked-alt"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-900 text-lg">World Monitor</h3>
+                    <p class="text-xs text-gray-500">Peta Makroekonomi Global</p>
+                </div>
+                <i class="fas fa-external-link-alt ml-auto text-gray-400 group-hover:text-primary"></i>
+            </a>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 glass-card rounded-2xl p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-gray-900">Live Economic Calendar</h2>
+                    <span class="bg-red-100 text-red-600 px-3 py-1 rounded-full text-xs font-bold animate-pulse">LIVE</span>
+                </div>
+                
+                <div class="w-full h-[600px] rounded-xl overflow-hidden border border-gray-200">
+                    <div class="tradingview-widget-container">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+                        {
+                        "colorTheme": "light",
+                        "isTransparent": false,
+                        "width": "100%",
+                        "height": "100%",
+                        "locale": "id",
+                        "importanceFilter": "0,1",
+                        "currencyFilter": "USD,EUR,GBP,JPY,AUD,CAD,CHF,NZD"
+                        }
+                        </script>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1 glass-card rounded-2xl p-6 h-fit">
+                <h2 class="text-xl font-bold text-gray-900 mb-6">Breaking News</h2>
+                
+                <div class="space-y-6">
+                    <div class="border-l-2 border-danger pl-4">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="bg-red-100 text-danger text-[10px] font-bold px-2 py-0.5 rounded uppercase">High Impact</span>
+                            <span class="text-xs text-gray-400"><i class="far fa-clock"></i> 10 Menit lalu</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 text-sm hover:text-primary cursor-pointer transition">Federal Reserve Pertahankan Suku Bunga di Level 5.50%</h3>
+                    </div>
+
+                    <div class="border-l-2 border-primary pl-4">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="bg-blue-100 text-primary text-[10px] font-bold px-2 py-0.5 rounded uppercase">Medium Impact</span>
+                            <span class="text-xs text-gray-400"><i class="far fa-clock"></i> 45 Menit lalu</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 text-sm hover:text-primary cursor-pointer transition">Data NFP Diprediksi Melonjak, US Dollar Menguat Terhadap Yen</h3>
+                    </div>
+
+                    <div class="border-l-2 border-gray-300 pl-4">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="bg-gray-100 text-gray-600 text-[10px] font-bold px-2 py-0.5 rounded uppercase">Low Impact</span>
+                            <span class="text-xs text-gray-400"><i class="far fa-clock"></i> 2 Jam lalu</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 text-sm hover:text-primary cursor-pointer transition">Harga Emas Global Terkonsolidasi Jelang Rilis Data Inflasi AS</h3>
+                    </div>
+                </div>
+
+                <button class="w-full mt-8 py-3 text-sm font-bold text-primary border border-primary rounded-xl hover:bg-blue-50 transition">
+                    Muat Lebih Banyak Berita
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

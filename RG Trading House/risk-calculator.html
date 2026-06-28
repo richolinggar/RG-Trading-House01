@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Position Size & RR | RG Trading House</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        primary: '#1565C0', success: '#00C853', danger: '#ef4444', warning: '#F59E0B',
+                        discord: '#5865F2', discordHover: '#4752C4', darkText: '#1E293B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .bg-smooth-radial { background: radial-gradient(circle at top center, #ffffff 0%, #e3f2fd 120%); }
+        .bg-grid-pattern {
+            background-image: linear-gradient(to right, rgba(21, 101, 192, 0.04) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(21, 101, 192, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 10px 30px -10px rgba(21, 101, 192, 0.1);
+        }
+        .blob {
+            position: absolute; filter: blur(80px); z-index: 0; opacity: 0.4; border-radius: 50%;
+            animation: float 10s infinite ease-in-out alternate;
+        }
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, -50px) scale(1.1); }
+        }
+        input[type=range] { accent-color: #1565C0; }
+        input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    </style>
+</head>
+<body class="bg-smooth-radial bg-grid-pattern min-h-screen text-gray-800 relative overflow-x-hidden flex flex-col">
+
+    <div class="blob bg-blue-300 w-96 h-96 top-0 left-10"></div>
+    <div class="blob bg-orange-200 w-80 h-80 top-40 right-10" style="animation-delay: -5s;"></div>
+
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="index.html" class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
+                    <div class="w-10 h-10 bg-primary text-white rounded-xl flex items-center justify-center font-black text-xl shadow-lg shadow-blue-500/20">RG</div>
+                    <span class="font-black text-xl tracking-tight text-darkText hidden sm:block">Trading House</span>
+                </a>
+                <div class="hidden lg:flex space-x-8 items-center font-semibold text-sm text-gray-500">
+                    <a href="index.html" class="hover:text-primary transition">Home</a>
+                    <a href="market.html" class="hover:text-primary transition">Market</a>
+                    <a href="kalkulator.html" class="text-primary transition">Tools</a>
+                    <a href="calender.html" class="hover:text-primary transition">Events</a>
+                    <a href="edukasi.html" class="hover:text-primary transition">Academy</a>
+                    <a href="https://discord.gg/ehxYFmJpn" target="_blank" class="bg-discord text-white px-6 py-2.5 rounded-full hover:bg-discordHover transition shadow-lg flex items-center gap-2">
+                        <i class="fab fa-discord text-lg"></i> Join Discord
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-1 relative pt-32 pb-20 z-10 w-full">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="mb-6">
+                <a href="kalkulator.html" class="text-primary hover:text-blue-800 font-semibold flex items-center gap-2 w-fit bg-white/50 px-4 py-2 rounded-full border border-blue-100 backdrop-blur-sm shadow-sm transition hover:shadow-md">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Menu Kalkulator
+                </a>
+            </div>
+
+            <div class="glass-card rounded-3xl p-8 w-full">
+                <div class="flex items-center gap-4 mb-8">
+                    <div class="w-14 h-14 bg-primary text-white rounded-2xl flex items-center justify-center text-2xl shadow-lg shadow-blue-500/30">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-3xl font-black text-darkText">Pro Position Size & RR</h1>
+                        <p class="text-gray-500 font-medium">Hitung otomatis Lot yang aman berdasarkan Modal, Pair, dan Target RR.</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-4">
+                    
+                    <div class="space-y-5 bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Pilih Instrumen (Pair)</label>
+                            <select id="pairSelect" onchange="cekKebutuhanHarga(); hitungSimulasi();" class="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 focus:ring-0 focus:border-primary outline-none transition font-semibold text-gray-800">
+                                <option value="EURUSD">EUR/USD (Forex Major)</option>
+                                <option value="GBPUSD">GBP/USD (Forex Major)</option>
+                                <option value="USDJPY">USD/JPY (Forex Cross)</option>
+                                <option value="XAUUSD">XAU/USD (Gold / Emas)</option>
+                                <option value="BTCUSD">BTC/USD (Bitcoin)</option>
+                                <option value="NASDAQ">NASDAQ / US100 (Index)</option>
+                            </select>
+                        </div>
+                        <div id="priceInputDiv" class="hidden bg-orange-50 p-4 rounded-xl border border-orange-200">
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Harga Market Saat Ini</label>
+                            <input type="number" id="currentPrice" step="0.01" oninput="hitungSimulasi()" placeholder="Contoh: 150.50" class="w-full px-4 py-3 rounded-xl border-2 border-orange-200 focus:border-warning outline-none transition">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Total Modal (Balance) USD</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"><span class="text-gray-500 font-black">$</span></div>
+                                <input type="number" id="modalBalance" value="1000" oninput="hitungSimulasi()" class="w-full pl-8 pr-4 py-3.5 rounded-xl border-2 border-gray-200 focus:border-primary outline-none transition font-bold text-gray-800">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Risiko (%)</label>
+                                <div class="flex items-center gap-2 bg-gray-50 rounded-xl border-2 border-gray-200 px-3 py-1 h-[52px]">
+                                    <input type="range" id="riskRange" min="0.5" max="5" step="0.5" value="1" class="w-full h-2 bg-gray-300 rounded-lg cursor-pointer" oninput="updateRiskText(this.value)">
+                                    <span id="riskText" class="font-bold text-primary w-12 text-right text-sm">1.0%</span>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Jarak SL (Pip)</label>
+                                <input type="number" id="stopLossPips" value="20" oninput="hitungSimulasi()" class="w-full px-4 py-3.5 rounded-xl border-2 border-gray-200 focus:border-primary outline-none transition font-bold text-gray-800" placeholder="20">
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-br from-blue-50 to-white p-5 rounded-2xl border-2 border-blue-100 mt-2">
+                            <label class="block text-xs font-black text-primary mb-3 uppercase tracking-wider text-center">Target Risk : Reward Ratio</label>
+                            <div class="flex items-center gap-3 justify-center">
+                                <div class="flex items-center justify-center bg-white w-20 h-16 rounded-xl font-black text-2xl text-gray-400 border border-gray-200 shadow-sm">1 <span class="text-lg ml-1">:</span></div>
+                                <input type="number" id="rewardRatio" step="0.5" value="2" oninput="hitungSimulasi()" class="w-32 h-16 px-2 rounded-xl border-2 border-blue-300 focus:border-primary outline-none transition text-3xl font-black text-primary text-center shadow-inner" placeholder="2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="kotakHasil" class="flex flex-col justify-between space-y-5">
+                        <div class="bg-blue-50 border border-blue-200 p-8 rounded-2xl text-center shadow-sm relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-primary text-white text-[10px] font-black px-4 py-1.5 rounded-bl-xl tracking-wider">LOT AMAN</div>
+                            <p class="text-sm font-bold text-gray-500 mb-2 uppercase tracking-wider" id="labelLot">Rekomendasi Lot Size</p>
+                            <p class="text-6xl font-black text-primary mb-4 tracking-tighter" id="hasilLot">0.05</p>
+                            <p class="text-xs text-gray-600 bg-white inline-block px-4 py-2 rounded-full border border-blue-100 font-medium shadow-sm">
+                                Resiko Terkunci: <span id="nominalRiskLock" class="font-black text-gray-900">$10.00</span>
+                            </p>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-red-50 border border-red-100 p-5 rounded-2xl flex flex-col justify-center">
+                                <div class="flex items-center gap-2 mb-2"><div class="w-2 h-2 rounded-full bg-danger"></div><p class="text-sm font-bold text-red-700">Jika SL Tersentuh</p></div>
+                                <p class="text-2xl font-black text-danger mb-1" id="hasilLoss">-$10.00</p>
+                                <p class="text-xs text-red-600 font-medium">Sisa: <span id="sisaModalLoss" class="font-bold">$990.00</span></p>
+                            </div>
+                            <div class="bg-green-50 border border-green-100 p-5 rounded-2xl flex flex-col justify-center">
+                                <div class="flex items-center gap-2 mb-2"><div class="w-2 h-2 rounded-full bg-success"></div><p class="text-sm font-bold text-green-700">Jika TP Tersentuh</p></div>
+                                <p class="text-2xl font-black text-success mb-1" id="hasilProfit">+$20.00</p>
+                                <p class="text-xs text-green-600 font-medium">Total: <span id="totalModalProfit" class="font-bold">$1020.00</span></p>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white border border-gray-200 p-6 rounded-2xl shadow-sm mt-2">
+                            <p class="text-sm font-bold text-gray-500 mb-4 text-center uppercase tracking-wider">Visualisasi Rasio (RR)</p>
+                            <div class="w-full h-12 rounded-xl flex overflow-hidden shadow-inner bg-gray-100">
+                                <div id="barRisk" class="bg-danger h-full transition-all duration-500 relative" style="width: 33.33%"></div>
+                                <div id="barReward" class="bg-success h-full transition-all duration-500 relative border-l-2 border-white/30" style="width: 66.67%"></div>
+                            </div>
+                            <div class="flex justify-between mt-4">
+                                <div class="flex flex-col"><span class="text-gray-400 text-xs font-bold uppercase">Risk</span><span class="text-danger text-xl font-black" id="labelRisk">1</span></div>
+                                <div class="flex flex-col text-right"><span class="text-gray-400 text-xs font-bold uppercase">Reward</span><span class="text-success text-xl font-black" id="labelReward">2</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-100 py-10 z-10 relative mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="flex justify-center items-center gap-3 mb-4">
+                <div class="w-8 h-8 bg-primary text-white rounded-lg flex items-center justify-center font-black text-xs shadow-sm">RG</div>
+                <span class="font-bold text-gray-700">Trading House</span>
+            </div>
+            <p class="text-sm text-gray-400 mb-4">&copy; 2026 RG Trading House. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function cekKebutuhanHarga() {
+            const pair = document.getElementById('pairSelect').value;
+            const priceDiv = document.getElementById('priceInputDiv');
+            if (pair === 'USDJPY') priceDiv.classList.remove('hidden'); else priceDiv.classList.add('hidden');
+        }
+        function updateRiskText(value) {
+            document.getElementById('riskText').innerText = parseFloat(value).toFixed(1) + "%"; hitungSimulasi();
+        }
+        function hitungSimulasi() {
+            const pair = document.getElementById('pairSelect').value;
+            const modal = parseFloat(document.getElementById('modalBalance').value);
+            const riskPersen = parseFloat(document.getElementById('riskRange').value);
+            const slPips = parseFloat(document.getElementById('stopLossPips').value);
+            const rewardRatio = parseFloat(document.getElementById('rewardRatio').value);
+
+            if (isNaN(modal) || isNaN(slPips) || isNaN(rewardRatio) || modal <= 0 || slPips <= 0 || rewardRatio <= 0) return;
+
+            const riskDolar = modal * (riskPersen / 100);
+            let pipValuePerLot = 0;
+            if (pair === 'EURUSD' || pair === 'GBPUSD') pipValuePerLot = 10;
+            else if (pair === 'USDJPY') {
+                const price = parseFloat(document.getElementById('currentPrice').value);
+                if (isNaN(price) || price <= 0) { document.getElementById('hasilLot').innerText = "Harga?"; return; }
+                pipValuePerLot = (0.01 / price) * 100000;
+            } else if (pair === 'XAUUSD' || pair === 'BTCUSD' || pair === 'NASDAQ') pipValuePerLot = 1;
+
+            const lotValue = riskDolar / (slPips * pipValuePerLot);
+            document.getElementById('hasilLot').innerText = lotValue.toFixed(2);
+            document.getElementById('nominalRiskLock').innerText = "$" + riskDolar.toFixed(2);
+            document.getElementById('hasilLoss').innerText = "-$" + riskDolar.toFixed(2);
+            document.getElementById('hasilProfit').innerText = "+$" + (riskDolar * rewardRatio).toFixed(2);
+            document.getElementById('sisaModalLoss').innerText = "$" + (modal - riskDolar).toFixed(2);
+            document.getElementById('totalModalProfit').innerText = "$" + (modal + (riskDolar * rewardRatio)).toFixed(2);
+
+            const totalRatio = 1 + rewardRatio;
+            document.getElementById('barRisk').style.width = ((1 / totalRatio) * 100) + "%";
+            document.getElementById('barReward').style.width = ((rewardRatio / totalRatio) * 100) + "%";
+            document.getElementById('labelReward').innerText = rewardRatio;
+        }
+        window.onload = hitungSimulasi;
+    </script>
+</body>
+</html>

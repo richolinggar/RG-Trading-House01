@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Paket Langganan | RG Trading House</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+    </style>
+</head>
+<body class="min-h-screen p-6 pb-20 relative">
+
+    <div class="max-w-6xl mx-auto mt-10">
+        <div class="text-center mb-12">
+            <h1 class="text-3xl lg:text-5xl font-black text-gray-900 mb-4">Investasi pada Ilmu & Data</h1>
+            <p class="text-gray-500 font-medium text-lg">Pilih paket akses ke RG Trading House sesuai dengan target Anda.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            
+            <!-- Paket Gratis -->
+            <div class="bg-white p-8 rounded-3xl border border-gray-200 shadow-sm flex flex-col">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">Basic Member</h3>
+                <p class="text-gray-500 text-sm mb-6">Cocok untuk pemula yang ingin melihat ekosistem.</p>
+                <div class="text-4xl font-black text-gray-900 mb-8">Gratis</div>
+                
+                <ul class="space-y-4 mb-8 flex-1">
+                    <li class="flex items-center gap-3 text-sm font-semibold text-gray-700"><i class="fas fa-check text-green-500"></i> Akses Kalkulator Pip</li>
+                    <li class="flex items-center gap-3 text-sm font-semibold text-gray-700"><i class="fas fa-check text-green-500"></i> Jurnal Trading Terbatas (10 Entry)</li>
+                    <li class="flex items-center gap-3 text-sm font-semibold text-gray-700"><i class="fas fa-check text-green-500"></i> Materi Edukasi Basic</li>
+                    <li class="flex items-center gap-3 text-sm font-semibold text-gray-400 opacity-50"><i class="fas fa-times"></i> Live Market & Economic Calendar</li>
+                    <li class="flex items-center gap-3 text-sm font-semibold text-gray-400 opacity-50"><i class="fas fa-times"></i> Advanced RR Calculator</li>
+                </ul>
+
+                <button onclick="window.location.href='login.html'" class="w-full py-4 rounded-xl font-bold border-2 border-gray-200 text-gray-700 hover:bg-gray-50 transition">
+                    Daftar Gratis
+                </button>
+            </div>
+
+            <!-- Paket Premium (Berbayar) -->
+            <div class="bg-blue-600 p-8 rounded-3xl border border-blue-500 shadow-xl shadow-blue-600/30 flex flex-col relative transform hover:-translate-y-2 transition duration-300">
+                <div class="absolute -top-4 right-8 bg-green-500 text-white text-xs font-black uppercase tracking-wider px-4 py-1.5 rounded-full shadow-md">Paling Populer</div>
+                
+                <h3 class="text-xl font-bold text-white mb-2">Pro Trader VIP</h3>
+                <p class="text-blue-200 text-sm mb-6">Akses penuh ke semua *tools* kelas institusional.</p>
+                <div class="flex items-end gap-2 mb-8">
+                    <span class="text-4xl font-black text-white">Rp 150.000</span>
+                    <span class="text-blue-200 font-semibold mb-1">/ bulan</span>
+                </div>
+                
+                <ul class="space-y-4 mb-8 flex-1">
+                    <li class="flex items-center gap-3 text-sm font-semibold text-white"><i class="fas fa-check text-green-300"></i> Semua Fitur Basic</li>
+                    <li class="flex items-center gap-3 text-sm font-semibold text-white"><i class="fas fa-check text-green-300"></i> Jurnal Trading Unlimited + Analitik</li>
+                    <li class="flex items-center gap-3 text-sm font-semibold text-white"><i class="fas fa-check text-green-300"></i> Advanced Risk Reward Calculator</li>
+                    <li class="flex items-center gap-3 text-sm font-semibold text-white"><i class="fas fa-check text-green-300"></i> Market Heatmap & Sentiment Real-time</li>
+                    <li class="flex items-center gap-3 text-sm font-semibold text-white"><i class="fas fa-check text-green-300"></i> Akses Grup Komunitas Discord/Telegram</li>
+                </ul>
+
+                <button onclick="bukaModalBayar()" class="w-full bg-white text-blue-600 py-4 rounded-xl font-bold hover:bg-blue-50 transition shadow-lg">
+                    Langganan Sekarang
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PEMBAYARAN (Pop-up Transfer) -->
+    <div id="modalBayar" class="fixed inset-0 bg-gray-900/60 backdrop-blur-sm flex items-center justify-center z-50 hidden opacity-0 transition-opacity duration-300">
+        <div class="bg-white w-full max-w-md rounded-3xl p-8 transform scale-95 transition-transform duration-300" id="modalContent">
+            
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold text-gray-900">Pembayaran VIP</h2>
+                <button onclick="tutupModalBayar()" class="text-gray-400 hover:text-red-500 transition"><i class="fas fa-times text-xl"></i></button>
+            </div>
+
+            <!-- Total Harga -->
+            <div class="bg-gray-50 rounded-xl p-4 mb-6 border border-gray-100 flex justify-between items-center">
+                <span class="font-semibold text-gray-500">Total Tagihan:</span>
+                <span class="text-2xl font-black text-blue-600">Rp 150.000</span>
+            </div>
+
+            <p class="text-sm font-semibold text-gray-700 mb-4">Pilih Metode Transfer:</p>
+            
+            <!-- Simulasi Opsi Bank -->
+            <div class="space-y-3 mb-8">
+                <div class="border border-blue-200 bg-blue-50 p-4 rounded-xl flex items-center gap-4 cursor-pointer">
+                    <div class="w-12 h-8 bg-white rounded shadow-sm flex items-center justify-center font-black text-blue-900 text-xs">BCA</div>
+                    <div>
+                        <p class="font-bold text-gray-800 text-sm">BCA Virtual Account</p>
+                        <p class="font-mono text-gray-600 mt-1 tracking-widest font-semibold">1234 5678 9012 3456</p>
+                    </div>
+                </div>
+                
+                <div class="border border-gray-200 p-4 rounded-xl flex items-center gap-4 hover:bg-gray-50 cursor-pointer transition">
+                    <div class="w-12 h-8 bg-white rounded shadow-sm border border-gray-100 flex items-center justify-center font-black text-red-500 text-xs">QRIS</div>
+                    <p class="font-bold text-gray-800 text-sm">Scan QR Code (Semua Bank/E-Wallet)</p>
+                </div>
+            </div>
+
+            <button onclick="konfirmasiBayar()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-800 transition shadow-lg flex items-center justify-center gap-2">
+                <i class="fas fa-lock"></i> Saya Sudah Transfer
+            </button>
+        </div>
+    </div>
+
+    <!-- Script Logika Modal -->
+    <script>
+        const modal = document.getElementById('modalBayar');
+        const modalContent = document.getElementById('modalContent');
+
+        function bukaModalBayar() {
+            modal.classList.remove('hidden');
+            // Sedikit delay agar animasi fade-in & scale-up terlihat
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+            }, 10);
+        }
+
+        function tutupModalBayar() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); // Waktu sesuai durasi transisi
+        }
+
+        function konfirmasiBayar() {
+            // Simulasi proses verifikasi pembayaran
+            const btn = event.currentTarget;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memverifikasi...';
+            btn.classList.add('bg-gray-500');
+            
+            setTimeout(() => {
+                alert("Pembayaran Berhasil Diverifikasi! Selamat datang di Pro Member.");
+                window.location.href = "login.html"; // Setelah bayar disuruh login
+            }, 2000);
+        }
+    </script>
+</body>
+</html>

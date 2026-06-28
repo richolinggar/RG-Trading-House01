@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Market | RG Trading House</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        primary: '#1565C0', success: '#00C853', danger: '#ef4444',
+                        discord: '#5865F2', discordHover: '#4752C4', darkText: '#1E293B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 30px -10px rgba(21, 101, 192, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- NAVBAR IDENTIK DENGAN INDEX -->
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- LOGO RG KOTAK (SESUAI REQUEST) -->
+                <a href="index.html" class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition">
+                    <div class="w-10 h-10 bg-primary text-white rounded-xl flex items-center justify-center font-black text-xl shadow-lg shadow-blue-500/30">RG</div>
+                    <span class="font-black text-xl tracking-tight text-darkText hidden sm:block">Trading House</span>
+                </a>
+                
+                <div class="hidden lg:flex space-x-8 items-center font-semibold text-sm text-gray-500">
+                    <a href="index.html" class="hover:text-primary transition">Home</a>
+                    <a href="market.html" class="text-primary transition">Market</a>
+                    <a href="kalkulator.html" class="hover:text-primary transition">Tools</a>
+                    <a href="calender.html" class="hover:text-primary transition">Events</a>
+                    <a href="edukasi.html" class="hover:text-primary transition">Academy</a>
+                    
+                    <a href="https://discord.gg/ehxYFmJpn" target="_blank" class="bg-discord text-white px-6 py-2.5 rounded-full hover:bg-discordHover transition shadow-lg flex items-center gap-2">
+                        <i class="fab fa-discord text-lg"></i> Join Discord
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- KONTEN -->
+    <main class="pt-32 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        
+        <div class="mb-8">
+            <a href="index.html" class="text-gray-500 hover:text-primary font-semibold flex items-center gap-2 w-fit">
+                <i class="fas fa-arrow-left text-sm"></i> Kembali
+            </a>
+        </div>
+
+        <div class="glass-card rounded-3xl p-6 lg:p-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                <div>
+                    <h1 class="text-3xl font-black text-darkText mb-2">Live Trading Terminal</h1>
+                    <p class="text-gray-500 font-medium">Terminal analisis profesional. Ganti pair di pojok kiri atas chart.</p>
+                </div>
+                <div class="flex items-center gap-2 bg-blue-50 px-4 py-2 rounded-full border border-blue-100">
+                    <span class="w-2.5 h-2.5 rounded-full bg-success animate-pulse"></span>
+                    <span class="text-xs font-bold text-primary uppercase">Market Online</span>
+                </div>
+            </div>
+
+            <!-- Chart -->
+            <div class="w-full h-[650px] rounded-2xl overflow-hidden border border-gray-200 shadow-inner">
+                <div class="tradingview-widget-container" style="height: 100%; width: 100%;">
+                    <div id="tradingview_advanced" style="height: 100%; width: 100%;"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                    <script type="text/javascript">
+                    new TradingView.widget({
+                        "autosize": true, "symbol": "OANDA:XAUUSD", "interval": "60", "timezone": "Asia/Jakarta",
+                        "theme": "light", "style": "1", "locale": "id", "enable_publishing": false,
+                        "backgroundColor": "#ffffff", "gridColor": "#f3f4f6", "hide_top_toolbar": false,
+                        "allow_symbol_change": true, "details": true, "hotlist": true, "save_image": false,
+                        "container_id": "tradingview_advanced", "toolbar_bg": "#f1f3f6",
+                        "studies": ["Volume@tv-basicstudies", "MACD@tv-basicstudies"]
+                    });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

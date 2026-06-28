@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RG Trading House | Professional Forex Ecosystem</title>
+    <!-- Tailwind CSS & Fonts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        primary: '#1565C0', success: '#00C853', danger: '#ef4444',
+                        discord: '#5865F2', discordHover: '#4752C4', darkText: '#1E293B'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .bg-smooth-radial { background: radial-gradient(circle at top center, #ffffff 0%, #e3f2fd 120%); }
+        .bg-grid-pattern {
+            background-image: linear-gradient(to right, rgba(21, 101, 192, 0.04) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(21, 101, 192, 0.04) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5); box-shadow: 0 10px 30px -10px rgba(21, 101, 192, 0.1);
+        }
+        .hover-lift { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .hover-lift:hover { transform: translateY(-8px); box-shadow: 0 20px 40px -10px rgba(21, 101, 192, 0.2); border-color: #bfdbfe; }
+        .blob { position: absolute; filter: blur(80px); z-index: 0; opacity: 0.4; border-radius: 50%; animation: float 10s infinite ease-in-out alternate; }
+        @keyframes float { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(30px, -50px) scale(1.1); } }
+    </style>
+</head>
+<body class="bg-smooth-radial min-h-screen text-gray-800 relative overflow-x-hidden">
+
+    <div class="blob bg-blue-300 w-96 h-96 top-0 left-10"></div>
+    <div class="blob bg-green-200 w-80 h-80 top-40 right-10" style="animation-delay: -5s;"></div>
+
+    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/80 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center gap-3 cursor-pointer">
+                    <div class="w-10 h-10 bg-primary text-white rounded-xl flex items-center justify-center font-black text-xl shadow-lg shadow-blue-500/30">RG</div>
+                    <span class="font-black text-xl tracking-tight text-darkText hidden sm:block">Trading House</span>
+                </div>
+                
+                <div class="hidden lg:flex space-x-8 items-center font-semibold text-sm text-gray-500">
+                    <a href="market.html" class="hover:text-primary transition">Market</a>
+                    <a href="kalkulator.html" class="hover:text-primary transition">Tools</a>
+                    <a href="calender.html" class="hover:text-primary transition">Events</a>
+                    <a href="Journal.html" class="hover:text-primary transition">Journal</a> <!-- Item Baru -->
+                    <a href="edukasi.html" class="hover:text-primary transition">Academy</a>
+                    
+                    <a href="https://discord.gg/ehxYFmJpn" target="_blank" class="bg-discord text-white px-6 py-2.5 rounded-full hover:bg-discordHover transition shadow-lg hover:-translate-y-0.5 flex items-center gap-2">
+                        <i class="fab fa-discord text-lg"></i> Join Discord
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-grid-pattern min-h-[90vh] flex items-center z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative text-center">
+            
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-blue-100 shadow-sm text-primary font-bold text-xs uppercase tracking-widest mb-8">
+                <span class="w-2 h-2 rounded-full bg-success animate-ping"></span>
+                Professional Forex Trading Ecosystem
+            </div>
+            
+            <h1 class="text-5xl lg:text-7xl font-black tracking-tighter text-darkText mb-6 leading-[1.1]">
+                Master the Markets with <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Precision & Data</span>
+            </h1>
+            
+            <p class="text-lg text-gray-500 font-medium mb-12 max-w-2xl mx-auto leading-relaxed">
+                Bangun strategi yang lebih cerdas dengan platform trading modern yang mengintegrasikan live market, kalender ekonomi real-time, kalkulator profesional, analisis mendalam, simulasi compounding, dan trading journal dalam satu tempat.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="https://discord.gg/ehxYFmJpn" target="_blank" class="bg-discord text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-discordHover transition shadow-xl shadow-indigo-500/30 flex items-center justify-center gap-3 hover:-translate-y-1">
+                    <i class="fab fa-discord text-2xl"></i> Gabung Komunitas Discord
+                </a> 
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="py-24 relative z-10 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-16 items-start">
+            <div class="space-y-8">
+                <div>
+                    <h2 class="text-sm font-black text-primary uppercase tracking-widest mb-2">Our Manifesto</h2>
+                    <h2 class="text-4xl md:text-5xl font-black text-darkText leading-tight">The Story Behind <br><span class="text-primary">RG Trading House</span></h2>
+                </div>
+                
+                <div class="prose prose-lg text-gray-600">
+                    <p class="leading-relaxed">
+                        <strong>RG Trading House</strong> tidak lahir dari meja kantor yang nyaman, melainkan dari ribuan jam di depan layar saat pasar sedang tidak berpihak. Sang Founder menyadari satu hal krusial: banyak trader hebat yang gagal bukan karena mereka tidak paham teknik, melainkan karena mereka <strong>berjuang sendirian</strong> tanpa sistem, tanpa data, dan tanpa ekosistem yang mendukung.
+                    </p>
+                    <p class="leading-relaxed mt-4">
+                        Di tahun 2026, kami memutuskan untuk mengakhiri era trading "tebak-tebakan". Kami percaya bahwa trading adalah bisnis serius, sebuah profesi yang menuntut disiplin layaknya seorang atlet profesional dan ketelitian layaknya seorang analis data. Itulah alasan mengapa RG Trading House hadir.
+                    </p>
+                    
+                    <h4 class="font-bold text-darkText mt-8 mb-4">Filosofi Kami:</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-primary mt-1"></i>
+                            <span><strong>Data Over Hype:</strong> Kami menyingkirkan emosi. Segala keputusan di RG Trading House berbasis data, statistik, dan probabilitas, bukan sekadar prediksi sesaat.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-primary mt-1"></i>
+                            <span><strong>Institutional Mindset:</strong> Kami mendidik member kami untuk berpikir seperti institusi besar. Fokus pada <em>Risk Management</em> di atas segalanya, karena modal adalah napas utama seorang trader.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-check-circle text-primary mt-1"></i>
+                            <span><strong>Growth Together:</strong> Kami percaya trading adalah marathon, bukan sprint. Di sini, Anda tidak akan pernah merasa berjuang sendirian; Anda adalah bagian dari ekosistem yang saling mengoreksi dan menguatkan.</span>
+                        </li>
+                    </ul>
+
+                    <p class="leading-relaxed mt-8 text-gray-500 italic">
+                        "Visi kami bukan untuk membuat Anda kaya dalam semalam, tapi untuk membuat Anda menjadi trader yang mampu bertahan selamanya di pasar yang penuh ketidakpastian ini."
+                    </p>
+                </div>
+
+                <div class="flex items-center gap-6 p-6 bg-gray-50 rounded-2xl border border-gray-100">
+                    <div class="w-16 h-16 bg-primary text-white rounded-2xl flex items-center justify-center font-black text-2xl shadow-lg">RG</div>
+                    <div>
+                        <p class="font-black text-darkText text-lg">Founder of RG Trading House</p>
+                        <p class="text-sm text-gray-500">Established 2026 | Trading Ecosystem </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="relative sticky top-32">
+                <div class="relative group">
+                    <img src="logo.jpg" alt="Founder RG Trading House" class="rounded-3xl shadow-2xl w-full h-[600px] object-cover transition duration-700 group-hover:scale-[1.02]">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-3xl object-cover transition duration-700 group-hover:scale-[1.02]"></div>
+                    <div class="absolute bottom-8 left-8 text-white">
+                        <p class="font-black text-4xl">richolinggar</p>
+                        <p class="text-lg opacity-90">Core Value of Our Journey</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION TERMINALS -->
+    <section id="terminals" class="py-24 relative z-20 bg-gray-50 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center mb-16">
+                <h2 class="text-sm font-black text-primary uppercase tracking-widest mb-2">Live Market Data</h2>
+                <h2 class="text-4xl md:text-5xl font-black text-darkText leading-tight">Trading <span class="text-primary">Terminals</span></h2>
+                <p class="text-lg text-gray-500 font-medium mt-4 max-w-2xl mx-auto">
+                    Pantau kondisi pasar secara real-time melalui kalender ekonomi, peta makro, sentimen pasar global, berita futures terkini, dan heatmap mata uang.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-1">
+
+            <!-- Terminal 7: Market Overview / Ticker (Lebar Penuh) -->
+            <div class="glass-card rounded-3xl overflow-hidden shadow-xl border border-gray-200 flex flex-col hover-lift w-full">
+                <div class="p-4 bg-darkText text-white border-b border-gray-200 flex items-center justify-between">
+                    <h3 class="font-bold text-lg flex items-center gap-2">
+                        <i class="fas fa-chart-line"></i> Market Overview
+                    </h3>
+                    <span class="text-xs font-semibold bg-white/20 px-3 py-1 rounded-full">TradingView</span>
+                </div>
+                <div class="w-full h-[600px] bg-white relative">
+                    <iframe src="https://sslecal2.forexprostools.com?columns=exc_flags,exc_currency,exc_importance,exc_actual,exc_forecast,exc_previous&features=datepicker,timezone&countries=25,32,6,37,72,22,17,39,14,10,35,43,56,36,110,11,26,12,4,5&calType=week&timeZone=55&lang=1" width="100%" height="100%" frameborder="0" allowtransparency="true" marginwidth="0" marginheight="0"></iframe>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</body>
+</html>
